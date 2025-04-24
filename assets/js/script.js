@@ -65,28 +65,55 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }).mount();
 });
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
   const circles = document.querySelectorAll(".progress-circle");
 
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const circle = entry.target;
+          const progress = circle.querySelector(".progress");
+          const percentageElem = circle.querySelector(".percentage");
+          const target = +circle.getAttribute("data-target");
+          let count = 0;
+          const strokeDasharray = 314;
+
+          // Number counter animation
+          const interval = setInterval(() => {
+            if (count >= target) {
+              clearInterval(interval);
+            } else {
+              count++;
+              percentageElem.textContent = `${count}%`;
+            }
+          }, 15);
+
+          // Stroke animation
+          let offset = strokeDasharray;
+          let step = strokeDasharray / 100;
+
+          const strokeAnim = setInterval(() => {
+            let currentOffset = parseFloat(progress.getAttribute("stroke-dashoffset"));
+            if (currentOffset <= strokeDasharray - (strokeDasharray * target) / 100) {
+              clearInterval(strokeAnim);
+            } else {
+              currentOffset -= step;
+              progress.setAttribute("stroke-dashoffset", currentOffset);
+            }
+          }, 15);
+
+          observer.unobserve(circle); // Animate once
+        }
+      });
+    },
+    {
+      threshold: 0.6, // 60% visible to trigger
+    }
+  );
+
   circles.forEach(circle => {
-    const target = +circle.getAttribute("data-target");
-    const text = circle.querySelector(".percentage");
-    const progressCircle = circle.querySelector("circle.progress");
-
-    let value = 0;
-    const totalLength = 314; // 2πr, r=50
-
-    const animate = () => {
-      if (value <= target) {
-        text.textContent = `${value}%`;
-        const offset = totalLength - (totalLength * value) / 100;
-        progressCircle.style.strokeDashoffset = offset;
-        value++;
-        setTimeout(animate, 20); // speed
-      }
-    };
-
-    animate();
+    observer.observe(circle);
   });
 });
 
