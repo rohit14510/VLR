@@ -28,11 +28,11 @@ $mail->Password = 'Standup@123';
 $mail->SMTPSecure = 'tls';
 $mail->Port     = 587;
 // Sender info 
-$mail->setFrom('info@anandrelocation.com', 'Anand Relocation Pvt Ltd'); 
-$mail->addReplyTo('info@anandrelocation.com', 'Test Email'); 
+$mail->setFrom('info@vlrpackersmovers.in', 'VLR Packers And Movers'); 
+$mail->addReplyTo('info@vlrpackersmovers.in', 'Test Email'); 
  
 // Add a recipient 
-$mail->addAddress('Anandrelocation@gmail.com'); 
+$mail->addAddress('rohitpancholi14510@gmail.com'); 
  
 // Add cc or bcc  
 // $mail->addCC('cc@example.com'); 
@@ -55,7 +55,7 @@ $mailContent = '
     <p>Service :'.$select.'</p> 
     <p>Message :'.$msg.'</p> 
     <p>Thanks and Regards</p>  
-    <p>Anand Relocation Pvt Ltd</p>';  
+    <p>VLR Packers And Movers</p>';  
 // $mailContent = "Name : ".$name."\n"."Subject : ".$subject."\n"."Email : ".$email."\n"."Mbile : ".$mobile."\n"."Message :".$message; 
 $mail->Body = $mailContent; 
 $mail->headers  = "From: Sender Name <standupstartups1@gmail.com>" . "\r\n";
@@ -66,7 +66,7 @@ $mail->headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 if(!$mail->send()){ ?>
     <script>
     alert("Message could not be sent");
-    window.location.href="https://anandrelocation.com/thank-you.html";
+    window.location.href="https://vlrpackersmovers.in/thank-you.html";
     </script>
     // 
     <?php
@@ -78,7 +78,7 @@ if(!$mail->send()){ ?>
              
             //   if( $_GET['status'] == 'success') {
                 //  alert("Mail Send Successfully");
-                 window.location.href="https://anandrelocation.com/thank-you.html";
+                 window.location.href="https://vlrpackersmovers.in/thank-you.html";
             //   }
             //   else{
             //       echo 'alert("no good");';
